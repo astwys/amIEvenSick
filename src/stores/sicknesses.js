@@ -1,6 +1,6 @@
-import { Collection, Model } from 'mobx-rest'
+import { Collection } from 'mobx-rest'
+import SicknessesModel from '../models/sickness'
 
-class SicknessesModel extends Model { }
 export class SicknessesCollection extends Collection {
     url() { return '/users' }
     model() { return SicknessesModel }

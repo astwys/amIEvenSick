@@ -18,6 +18,7 @@ export default observer (class Symptomps extends Component {
 
 		extendObservable(this, {
 			filter: "",
+			userSymptomps: [],
 
 			get filteredSymptomps() {
 				var matchesFilter = new RegExp(this.filter)
@@ -26,29 +27,41 @@ export default observer (class Symptomps extends Component {
 		})
 	}
 
-	setSymptomps(e) {
+	setFilter(e) {
         this.filter = e.target.value
     }
+
+    addSymptomp(symptomp) {
+    	this.userSymptomps.push(symptomp)
+    }
+
 
 	render() {
 		if (symptomps.isRequest('fetching')) {
 			return <Loading label='symptomps' />
 		}
 		
-		let hidden = "hide"
+		let hidden = "hidden"
 		if (this.filter !== "") {
 			hidden = ""
 		}
 
 		return (
 			<div className='Sympomps'>
-				<input type='text' className='filter' value={this.filter} onChange={this.setSymptomps.bind(this)} />
+				<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
 				<div>
 					<Link to="/sicknesses">Check Sicknesses</Link>
 				</div>
 				{
 					this.filteredSymptomps.map(symptomp => (
-						<Symptomp key={symptomp.id} symptomp={symptomp} hidden={hidden}/>
+						<button onClick={() => { this.addSymptomp(symptomp) }} className={hidden} key={symptomp.id}>
+							<Symptomp key={symptomp.id} symptomp={symptomp} hidden={hidden} />
+						</button>
+					))
+				}
+				{
+					this.userSymptomps.map(symptomp => (
+						<Symptomp key={symptomp.id} symptomp={symptomp} />	
 					))
 				}
 			</div>
