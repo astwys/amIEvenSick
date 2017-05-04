@@ -33,6 +33,11 @@ export default observer (class Symptomps extends Component {
 
     addSymptomp(symptomp) {
     	this.userSymptomps.push(symptomp)
+    	this.filter = ""
+    }
+
+    removeSymptomp(symptomp) {
+		this.userSymptomps = this.userSymptomps.filter((symp) => { return symp.id !== symptomp.id })
     }
 
 
@@ -54,14 +59,17 @@ export default observer (class Symptomps extends Component {
 				</div>
 				{
 					this.filteredSymptomps.map(symptomp => (
-						<button onClick={() => { this.addSymptomp(symptomp) }} className={hidden} key={symptomp.id}>
+						<button onClick={() => { this.addSymptomp(symptomp) }} className={ `Button ${hidden}` } key={symptomp.id}>
 							<Symptomp key={symptomp.id} symptomp={symptomp} hidden={hidden} />
 						</button>
 					))
 				}
 				{
 					this.userSymptomps.map(symptomp => (
-						<Symptomp key={symptomp.id} symptomp={symptomp} />	
+						<div key={symptomp.id}>
+							<Symptomp symptomp={symptomp} />
+							<button onClick={() => {this.removeSymptomp(symptomp) }} className="Button">&times;</button>
+						</div>
 					))
 				}
 			</div>
