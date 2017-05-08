@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import symptomps from '../../stores/symptomps'
 import Symptomp from '../Symptomp/Symptomp'
 import Loading from '../Loading/Loading'
+import Form from '../Form/Form'
 
 export default observer (class Symptomps extends Component {
 	componentWillMount() {
@@ -60,7 +61,7 @@ export default observer (class Symptomps extends Component {
 				{
 					this.filteredSymptomps.map(symptomp => (
 						<button onClick={() => { this.addSymptomp(symptomp) }} className={ `Button ${hidden}` } key={symptomp.id}>
-							<Symptomp key={symptomp.id} symptomp={symptomp} hidden={hidden} />
+							<Symptomp symptomp={symptomp} hidden={hidden} />
 						</button>
 					))
 				}
@@ -72,6 +73,8 @@ export default observer (class Symptomps extends Component {
 						</div>
 					))
 				}
+
+				<Form symptomps={this.userSymptomps} />
 			</div>
 		)
 	}
