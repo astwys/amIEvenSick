@@ -8,7 +8,7 @@ export default observer (class Sickness extends Component {
 
         return (
             <div className='Sickness'>
-                {sickness.get('username')}
+                {sickness.get('title')}
             </div>
         )
     }
