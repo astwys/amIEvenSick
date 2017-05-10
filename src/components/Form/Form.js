@@ -18,30 +18,31 @@ export default observer(class Form extends Component {
 		let submitSymptomps = new SymptompsCollection()
 		event.preventDefault()
 		const { symptomps } = this.props
-		// symptomps.forEach(function(symp) {
-		// 	fetch(`https://jsonplaceholder.typicode.com/todos/${symp.attributes._data.id.value}`)
-		// 		.then((result) => {
-		// 			return result.json()
-		// 		})
-		// 		.then((output) => {
-		// 			//console.log(output)
-		// 			submitSymptomps.add([output])
-		// 			console.log(submitSymptomps.toArray())
-		// 			console.log(this.userSymptomps)
-		// 		})
-		// })
-		let uri = ""
-		symptomps.forEach(symp => {
-			uri+=symp.attributes._data.id.value + '/'
-		})
 
-		fetch(`https://jsonplaceholder.typicode.com/todos/${uri}`)
+		//let symptomsList = []
+		let sympt = null
+		symptomps.forEach(symp => {
+			//symptomsList.push(symp.attributes._data)
+			sympt = symp.attributes._data
+		})
+		//console.log(JSON.stringify(symptomsList))
+		console.log(JSON.stringify(sympt))
+
+		fetch('https://jsonplaceholder.typicode.com/todos', {
+			method: 'POST',
+			headers: {
+    			'Accept': 'application/json',
+    			'Content-Type': 'application/json'
+  			},
+  			// body: JSON.stringify(symptomsList)
+  			body: JSON.stringify(sympt)
+		})
 			.then(result => {return result.json()})
 			.then(output => submitSymptomps.add([output]))
 			.then(() => {
 				this.context.router.history.push({
      				pathname: 'sicknesses',
-     				state: {symptoms: submitSymptomps}
+     				state: { symptoms: submitSymptomps }
 				})
 			})
 	}
