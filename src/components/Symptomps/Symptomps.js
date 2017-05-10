@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './Symptomps.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
-import { Link } from 'react-router-dom';
 
 import symptomps from '../../stores/symptomps'
 import Symptomp from '../Symptomp/Symptomp'
@@ -54,9 +53,8 @@ export default observer (class Symptomps extends Component {
 
 		return (
 			<div className='Sympomps'>
-				<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
 				<div>
-					<Link to="/sicknesses">Check Sicknesses</Link>
+					<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
 				</div>
 				{
 					this.filteredSymptomps.map(symptomp => (

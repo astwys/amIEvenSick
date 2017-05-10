@@ -32,13 +32,12 @@ export default observer(class Form extends Component {
 		// })
 		let uri = ""
 		symptomps.forEach(symp => {
-			uri+=symp.attributes._data.id.value
+			uri+=symp.attributes._data.id.value + '/'
 		})
 
 		fetch(`https://jsonplaceholder.typicode.com/todos/${uri}`)
 			.then(result => {return result.json()})
 			.then(output => submitSymptomps.add([output]))
-			.then(() => submitSymptomps.toJS().forEach(symp => console.log(symp.attributes)))
 			.then(() => {
 				this.context.router.history.push({
      				pathname: 'sicknesses',
@@ -48,7 +47,6 @@ export default observer(class Form extends Component {
 	}
 
 	render() {
-
 		return (
 			<form onSubmit={this.onSubmit.bind(this)} className='Form'>
 				<button className='Symptomps_Form' type='submit'>Check your illness</button>
