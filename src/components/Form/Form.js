@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Form.css'
 import { observer } from 'mobx-react'
 
-import { SymptompsCollection } from '../../stores/symptomps'
+import { SymptomsCollection } from '../../stores/symptoms'
 
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
@@ -15,13 +15,13 @@ export default observer(class Form extends Component {
     }
 
 	onSubmit (event) {
-		let submitSymptomps = new SymptompsCollection()
+		let submitSymptoms = new SymptomsCollection()
 		event.preventDefault()
-		const { symptomps } = this.props
+		const { symptoms } = this.props
 
 		//let symptomsList = []
 		let sympt = null
-		symptomps.forEach(symp => {
+		symptoms.forEach(symp => {
 			//symptomsList.push(symp.attributes._data)
 			sympt = symp.attributes._data
 		})
@@ -37,14 +37,14 @@ export default observer(class Form extends Component {
   			// body: JSON.stringify(symptomsList)
   			body: JSON.stringify(sympt)
 		})
-			.then(result => {return result.json()})
-			.then(output => submitSymptomps.add([output]))
-			.then(() => {
-				this.context.router.history.push({
-     				pathname: 'sicknesses',
-     				state: { symptoms: submitSymptomps }
-				})
+		.then(result => {return result.json()})
+		.then(output => submitSymptoms.add([output]))
+		.then(() => {
+			this.context.router.history.push({
+ 				pathname: 'sicknesses',
+ 				state: { symptoms: submitSymptoms }
 			})
+		})
 	}
 
 	render() {
