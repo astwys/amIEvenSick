@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import './Form.css'
 import { observer } from 'mobx-react'
 
-// import { SymptomsCollection } from '../../stores/symptoms'
-
-// require('es6-promise').polyfill();
-// import fetch from 'isomorphic-fetch'
-
 import PropTypes from 'prop-types'
 
 export default observer(class Form extends Component {
