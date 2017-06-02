@@ -9,7 +9,7 @@ export default observer (class Symptom extends Component {
 
 		return (
 			<div className={ `Symptom ${hidden}` }>
-				{symptom.get('title')}
+				{symptom._source.name}
 			</div>
 		)
 	}

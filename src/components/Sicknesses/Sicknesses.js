@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Sicknesses.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
-//import sicknesses from '../../stores/sicknesses'
+
 import Sickness from '../Sickness/Sickness'
 import Loading from '../Loading/Loading'
 
@@ -23,7 +23,10 @@ export default observer (class Sicknesses extends Component {
 
         extendObservable(this, {
             loading: true,
-            sicknesses: null
+            sicknesses: null,
+            body: {
+                "symptoms": []
+            }
         })
     }
 
@@ -37,23 +40,25 @@ export default observer (class Sicknesses extends Component {
     fetchData(symptoms) {
         let submitSymptoms = new SymptomsCollection()
 
-        //let symptomsList = []
-        let sympt = null
-
         symptoms.forEach(symp => {
-            // symptomsList.push(symp.attributes._data)
-            sympt = symp.attributes._data
+
+            this.body.symptoms.push({"name": symp._source.name})
         })
 
-        fetch('https://jsonplaceholder.typicode.com/todos', {
+        console.log(JSON.stringify(this.body))
+        fetch('https://mighty-woodland-94853.herokuapp.com/sbs', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(sympt)
+            //body: JSON.stringify(sympt)
+            body: JSON.stringify(this.body)
         })
-        .then(result => { return result.json() })
+        .then(result => { 
+            console.log(result.json())
+            return result.json() 
+        })
         .then(output => submitSymptoms.add([output]))
         .then(() => {
             this.sicknesses = submitSymptoms

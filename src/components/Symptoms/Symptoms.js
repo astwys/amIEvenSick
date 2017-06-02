@@ -3,69 +3,97 @@ import './Symptoms.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
 
-import symptoms from '../../stores/symptoms'
-import Symptom from '../Symptom/Symptom'
-import Loading from '../Loading/Loading'
 import Form from '../Form/Form'
 
+
+import Symptom from '../Symptom/Symptom'
+
+require('es6-promise').polyfill();
+import fetch from 'isomorphic-fetch'
+
+import '../../../node_modules/choices.js/assets/styles/css/choices.css'
+
 export default observer (class Symptoms extends Component {
-	componentWillMount() {
-		symptoms.fetch()
-	}
 
 	constructor() {
 		super()
 
 		extendObservable(this, {
 			filter: "",
-			userSymptoms: [],
-
-			get filteredSymptoms() {
-				var matchesFilter = new RegExp(this.filter)
-		        return symptoms.models.filter(symptom => matchesFilter.test(symptom.get('title')))
-			}
+			body: {
+				"query": {
+					"match": {
+						"name": ""
+					}
+				}
+			},
+			symptomsFetch: [],
+			userSymptoms: []
 		})
 	}
 
-	setFilter(e) {
-        this.filter = e.target.value
-    }
+	async setFilter(e) {
+		this.filter = e.target.value
+		if (this.filter !== "") {
+			await this.fetchData();
+		}
+	}
 
-    addSymptom(symptom) {
-    	this.userSymptoms.push(symptom)
-    	this.filter = ""
-    }
+	fetchData() {
+		this.symptomsFetch = []
+		this.body.query.match.name = this.filter
+		fetch('https://first-cluster-1485543977.eu-west-1.bonsaisearch.net/amisick/symptom/_search', {
+				method: 'POST',
+				headers: {
+					'Authorization': 'Basic '+btoa('3tqci0amyj:l2s1jag1tn'), 
+					'Accept': 'application/json',
+                	'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(this.body)
+			})
+			.then(result => { return result.json() })
+			.then(output => { return output.hits.hits })
+			.then(hits => {
+				hits.map(hit => 
+					this.symptomsFetch.push(hit)
+				)
+			})
+	}
 
-    removeSymptomp(symptom) {
-		this.userSymptoms = this.userSymptoms.filter((symp) => { return symp.id !== symptom.id })
-    }
+	
+	addSymptom(symptom) {
+		this.userSymptoms.push(symptom)
+		this.filter = ""
+	}
 
+	removeSymptom(symptom) {
+		this.userSymptoms = this.userSymptoms.filter(symp => { return symp._source !== symptom._source })
+	}
+	
 
 	render() {
-		if (symptoms.isRequest('fetching')) {
-			return <Loading label='symptoms' />
-		}
-		
+
 		let hidden = "hidden"
 		if (this.filter !== "") {
 			hidden = ""
 		}
 
 		return (
-			<div className='Sympoms'>
-				<div>
+			<div className='symptoms'>
+				<div className='input'>
 					<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
 				</div>
+
 				{
-					this.filteredSymptoms.map(symptom => (
-						<button onClick={() => { this.addSymptom(symptom) }} className={ `Button ${hidden}` } key={symptom.id}>
+					this.symptomsFetch.map(symptom => (
+						<button onClick={() => { this.addSymptom(symptom) }} className={ `Button ${hidden}` } key={symptom._id}>
 							<Symptom symptom={symptom} hidden={hidden} />
 						</button>
 					))
 				}
 				{
 					this.userSymptoms.map(symptom => (
-						<div key={symptom.id}>
+						<div key={symptom._id}>
 							<Symptom symptom={symptom} />
 							<button onClick={() => {this.removeSymptom(symptom) }} className="Button">&times;</button>
 						</div>
