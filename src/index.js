@@ -6,7 +6,6 @@ import adapter from 'mobx-rest-fetch-adapter'
 
 import './index.css'
 
-// initialize mob-rest api adapter
 const apiPath = 'https://jsonplaceholder.typicode.com'
 apiClient(adapter, { apiPath })
 

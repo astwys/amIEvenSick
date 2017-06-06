@@ -1,0 +1,18 @@
+.Sickness {
+  width: 8em;
+  height: 10em;
+  border: 1px #7F7F7F solid;
+  float: left;
+  margin-right: 3em;
+  padding: .5em; }
+  .Sickness .content {
+    margin: .3em; }
+    .Sickness .content .name {
+      font-size: 1.5em;
+      font-weight: 500;
+      padding-bottom: 1.2em; }
+    .Sickness .content .prevalence {
+      font-size: 1.2em;
+      padding-bottom: .9em; }
+    .Sickness .content .location {
+      font-size: .9em; }

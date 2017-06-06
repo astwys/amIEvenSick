@@ -3,15 +3,11 @@ import './Symptoms.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
 
-import Form from '../Form/Form'
-
-
 import Symptom from '../Symptom/Symptom'
+import Form from '../Form/Form'
 
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
-
-import '../../../node_modules/choices.js/assets/styles/css/choices.css'
 
 export default observer (class Symptoms extends Component {
 
@@ -28,19 +24,20 @@ export default observer (class Symptoms extends Component {
 				}
 			},
 			symptomsFetch: [],
-			userSymptoms: []
+			userSymptoms: [],
+			debounced: null
 		})
 	}
 
 	async setFilter(e) {
 		this.filter = e.target.value
 		if (this.filter !== "") {
-			await this.fetchData();
+			await this.fetchData()
 		}
 	}
 
 	fetchData() {
-		this.symptomsFetch = []
+		this.symptomsFetch.length = 0
 		this.body.query.match.name = this.filter
 		fetch('https://first-cluster-1485543977.eu-west-1.bonsaisearch.net/amisick/symptom/_search', {
 				method: 'POST',
@@ -82,25 +79,28 @@ export default observer (class Symptoms extends Component {
 			<div className='symptoms'>
 				<div className='input'>
 					<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
+					<Form symptoms={this.userSymptoms} />
 				</div>
 
+				<div className='options'>
 				{
 					this.symptomsFetch.map(symptom => (
-						<button onClick={() => { this.addSymptom(symptom) }} className={ `Button ${hidden}` } key={symptom._id}>
+						<button onClick={() => { this.addSymptom(symptom) }} className={ `Button option ${hidden}` } key={symptom._id}>
 							<Symptom symptom={symptom} hidden={hidden} />
 						</button>
 					))
 				}
+				</div>
+				<div className='chosen'>
 				{
 					this.userSymptoms.map(symptom => (
 						<div key={symptom._id}>
 							<Symptom symptom={symptom} />
-							<button onClick={() => {this.removeSymptom(symptom) }} className="Button">&times;</button>
+							<button onClick={() => {this.removeSymptom(symptom) }} className='Button'>&times;</button>
 						</div>
 					))
 				}
-
-				<Form symptoms={this.userSymptoms} />
+				</div>
 			</div>
 		)
 	}

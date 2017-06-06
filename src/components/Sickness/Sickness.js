@@ -8,7 +8,17 @@ export default observer (class Sickness extends Component {
 
         return (
             <div className='Sickness'>
-                {sickness.get('title')}
+                <div className='content'>
+                    <div className='name'>
+                        {sickness.name}
+                    </div>
+                    <div className='prevalence'>
+                        {sickness.prevalence}
+                    </div>
+                    <div className='location'>
+                        {sickness.location}
+                    </div>
+                </div>
             </div>
         )
     }
