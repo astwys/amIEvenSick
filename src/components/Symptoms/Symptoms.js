@@ -18,7 +18,7 @@ export default observer (class Symptoms extends Component {
 			filter: "",
 			body: {
 				"query": {
-					"match": {
+					"match_phrase_prefix": {
 						"name": ""
 					}
 				}
@@ -38,7 +38,7 @@ export default observer (class Symptoms extends Component {
 
 	fetchData() {
 		this.symptomsFetch.length = 0
-		this.body.query.match.name = this.filter
+		this.body.query.match_phrase_prefix.name = this.filter
 		fetch('https://first-cluster-1485543977.eu-west-1.bonsaisearch.net/amisick/symptom/_search', {
 				method: 'POST',
 				headers: {
