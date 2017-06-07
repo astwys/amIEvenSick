@@ -61,18 +61,37 @@ export default observer (class Sicknesses extends Component {
     }
 
     render() {
+        let symptoms = this.props.location.state.symptoms
+
         if (this.loading) {
             return <Loading label='sicknesses' />
         }
         return (
             <div className='Sicknesses'>
-                {
-                    this.sicknesses.map(sickness => (
-                        <Sickness key={sickness.id} sickness={sickness} />
-                    ))
-                }
+                <div className='heading'>
+                    For
+                    {
+                        symptoms.map(symptom => {
+                            let colon = ","
+                            if (symptoms.indexOf(symptom) == symptoms.length -2) colon=" &"
+                            if (symptoms.indexOf(symptom) === symptoms.length -1) {
+                                return (<span className='symptom'>&nbsp;{symptom._source.name}</span>)
+                            } else {
+                                return (<span className='symptom'>&nbsp;{symptom._source.name}{colon}</span>)    
+                            }
+                        })
+                    }
+                    &nbsp;we found the following sicknesses:
+                    <hr></hr>
+                </div>
+                <div className='sicknessesContainer'>
+                    {
+                        this.sicknesses.map(sickness => (
+                            <Sickness key={sickness.id} sickness={sickness} />
+                        ))
+                    }
+                </div>
             </div>
         )
     }
 })
-
