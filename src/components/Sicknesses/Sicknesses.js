@@ -73,7 +73,7 @@ export default observer (class Sicknesses extends Component {
                     {
                         symptoms.map(symptom => {
                             let colon = ","
-                            if (symptoms.indexOf(symptom) == symptoms.length -2) colon=" &"
+                            if (symptoms.indexOf(symptom) === symptoms.length -2) colon=" &"
                             if (symptoms.indexOf(symptom) === symptoms.length -1) {
                                 return (<span className='symptom'>&nbsp;{symptom._source.name}</span>)
                             } else {

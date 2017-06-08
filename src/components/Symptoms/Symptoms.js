@@ -57,16 +57,25 @@ export default observer (class Symptoms extends Component {
 			})
 	}
 
+	addSymptomOnEnter(e) {
+		if (e.keyCode === 13) {
+			this.addSymptom(this.symptomsFetch[0])
+		}
+	}
 	
 	addSymptom(symptom) {
 		this.userSymptoms.push(symptom)
-		this.filter = ""
+		this.removeFilterAndFocus()
 	}
 
 	removeSymptom(symptom) {
 		this.userSymptoms = this.userSymptoms.filter(symp => { return symp._source !== symptom._source })
 	}
 	
+	removeFilterAndFocus() {
+		this.filter = ""
+		document.getElementsByClassName('filter')[0].select()
+	}
 
 	render() {
 
@@ -78,28 +87,37 @@ export default observer (class Symptoms extends Component {
 		return (
 			<div className='symptoms'>
 				<div className='input'>
-					<input type='text' className='filter' value={this.filter} onChange={this.setFilter.bind(this)} />
+					<input type='text' 
+						   className='filter' 
+						   value={this.filter} 
+						   onChange={this.setFilter.bind(this)} 
+						   onKeyUp={this.addSymptomOnEnter.bind(this)}
+						   placeholder="Search for your symptoms"/>
 					<Form symptoms={this.userSymptoms} />
 				</div>
+				
+				<hr></hr>
 
-				<div className='options'>
-				{
-					this.symptomsFetch.map(symptom => (
-						<button onClick={() => { this.addSymptom(symptom) }} className={ `Button option ${hidden}` } key={symptom._id}>
-							<Symptom symptom={symptom} hidden={hidden} />
-						</button>
-					))
-				}
-				</div>
-				<div className='chosen'>
-				{
-					this.userSymptoms.map(symptom => (
-						<div key={symptom._id}>
-							<Symptom symptom={symptom} />
-							<button onClick={() => {this.removeSymptom(symptom) }} className='Button'>&times;</button>
-						</div>
-					))
-				}
+				<div className='optionWrapper'>
+					<div className='options'>
+					{
+						this.symptomsFetch.map(symptom => (
+							<button onClick={() => { this.addSymptom(symptom) }} className={ `Button option ${hidden}` } key={symptom._id}>
+								<Symptom symptom={symptom} hidden={hidden} />
+							</button>
+						))
+					}
+					</div>
+					<div className='chosen'>
+					{
+						this.userSymptoms.map(symptom => (
+							<div key={symptom._id}>
+								<Symptom symptom={symptom} />
+								<button onClick={() => {this.removeSymptom(symptom) }} className='Button'>&times;</button>
+							</div>
+						))
+					}
+					</div>
 				</div>
 			</div>
 		)
