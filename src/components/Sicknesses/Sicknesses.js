@@ -9,13 +9,7 @@ import Loading from '../Loading/Loading'
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
 
-import PropTypes from 'prop-types'
-
 export default observer (class Sicknesses extends Component {
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    }
-
     constructor() {
         super()
 
