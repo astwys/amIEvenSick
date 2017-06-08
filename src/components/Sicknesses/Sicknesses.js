@@ -56,7 +56,6 @@ export default observer (class Sicknesses extends Component {
     }
 
     render() {
-        //let symptoms = this.props.location.state.symptoms
 
         if (this.loading) {
             return <Loading label='sicknesses' />
