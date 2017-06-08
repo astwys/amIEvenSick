@@ -15,6 +15,7 @@ export default observer (class Sicknesses extends Component {
 
         extendObservable(this, {
             loading: true,
+            symptoms: [],
             sicknesses: [],
             body: {
                 "symptoms": []
@@ -23,9 +24,9 @@ export default observer (class Sicknesses extends Component {
     }
 
     componentWillMount() {
-        let symptoms = this.props.location.state.symptoms
+        this.symptoms = this.props.location.state.symptoms
         
-        this.fetchData(symptoms)
+        this.fetchData(this.symptoms)
     }
 
     fetchData(symptoms) {
@@ -55,7 +56,7 @@ export default observer (class Sicknesses extends Component {
     }
 
     render() {
-        let symptoms = this.props.location.state.symptoms
+        //let symptoms = this.props.location.state.symptoms
 
         if (this.loading) {
             return <Loading label='sicknesses' />
@@ -65,10 +66,10 @@ export default observer (class Sicknesses extends Component {
                 <div className='heading'>
                     For
                     {
-                        symptoms.map(symptom => {
+                        this.symptoms.map(symptom => {
                             let colon = ","
-                            if (symptoms.indexOf(symptom) === symptoms.length -2) colon=" &"
-                            if (symptoms.indexOf(symptom) === symptoms.length -1) {
+                            if (this.symptoms.indexOf(symptom) === this.symptoms.length -2) colon=" &"
+                            if (this.symptoms.indexOf(symptom) === this.symptoms.length -1) {
                                 return (<span className='symptom'>&nbsp;{symptom._source.name}</span>)
                             } else {
                                 return (<span className='symptom'>&nbsp;{symptom._source.name}{colon}</span>)    
