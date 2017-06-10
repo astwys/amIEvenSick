@@ -4,8 +4,9 @@ import { observer } from 'mobx-react'
 
 export default observer (class Symptom extends Component {
 	render() {
-		const { symptom } = this.props
-		const { hidden } = this.props
+		const { symptom, hidden, added } = this.props
+		// const { hidden } = this.props
+		// const { added } = this.props
 
 		return (
 			<div className={ `Symptom ${hidden}` }>

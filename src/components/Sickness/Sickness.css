@@ -15,5 +15,7 @@
     .Sickness .content .prevalence {
       font-size: 1.2em;
       padding-bottom: .9em; }
+    .Sickness .content .Common {
+      color: #5DB646; }
     .Sickness .content .location {
       font-size: .9em; }

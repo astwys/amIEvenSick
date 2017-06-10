@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3em; }
+  margin-bottom: 2em; }
   .symptoms .input input {
     padding: .5em .5em .5em .5em;
     font-size: 1.2em;
@@ -24,20 +24,26 @@
     background: none;
     border: none;
     font-size: 1em;
-    border-radius: 1.5em;
-    font-weight: 200; }
-  .symptoms .optionWrapper .option {
-    background-color: #FFB874; }
+    border-radius: 4px;
+    font-weight: 200;
+    margin-right: 2em; }
   .symptoms .optionWrapper .options {
     width: 50%;
     display: inline-block; }
+    .symptoms .optionWrapper .options .option {
+      background-color: #FFB874;
+      float: right; }
   .symptoms .optionWrapper .chosen {
     width: 50%;
     display: inline-block; }
-    .symptoms .optionWrapper .chosen .Symptom {
-      display: inline; }
-    .symptoms .optionWrapper .chosen button {
-      display: inline; }
+    .symptoms .optionWrapper .chosen .added {
+      margin-bottom: 1.5em; }
+      .symptoms .optionWrapper .chosen .added .Symptom {
+        display: inline;
+        padding-bottom: .3em;
+        border-bottom: 1px solid #FFB874; }
+      .symptoms .optionWrapper .chosen .added button {
+        display: inline; }
 
 .symptoms .hide {
   display: none; }

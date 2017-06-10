@@ -12,7 +12,7 @@ export default observer (class Sickness extends Component {
                     <div className='name'>
                         {sickness.name}
                     </div>
-                    <div className='prevalence'>
+                    <div className={ `prevalence ${sickness.prevalence}` }>
                         {sickness.prevalence}
                     </div>
                     <div className='location'>

@@ -111,8 +111,8 @@ export default observer (class Symptoms extends Component {
 					<div className='chosen'>
 					{
 						this.userSymptoms.map(symptom => (
-							<div key={symptom._id}>
-								<Symptom symptom={symptom} />
+							<div key={symptom._id} className='added'>
+								<Symptom symptom={symptom}/>
 								<button onClick={() => {this.removeSymptom(symptom) }} className='Button'>&times;</button>
 							</div>
 						))
