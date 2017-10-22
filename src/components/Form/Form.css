@@ -1,0 +1,11 @@
+.Form {
+  float: left; }
+  .Form button {
+    border: none;
+    color: #222;
+    background-color: #FFB874;
+    padding: 1.1em 1em;
+    font-size: .8em;
+    min-width: 4em; }
+    .Form button:focus {
+      outline: none; }

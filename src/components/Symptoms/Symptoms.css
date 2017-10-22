@@ -1,0 +1,49 @@
+.symptoms .input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2em; }
+  .symptoms .input input {
+    padding: .5em .5em .5em .5em;
+    font-size: 1.2em;
+    margin-right: 1em; }
+    .symptoms .input input[type="text"] {
+      border: none;
+      border-bottom: 2px solid #FFB874;
+      outline: none; }
+    .symptoms .input input::-webkit-input-placeholder {
+      font-size: .7em; }
+    .symptoms .input input .filter {
+      float: left; }
+
+.symptoms .optionWrapper {
+  margin-top: 3em; }
+  .symptoms .optionWrapper button:focus {
+    outline: none; }
+  .symptoms .optionWrapper .Button {
+    background: none;
+    border: none;
+    font-size: 1em;
+    border-radius: 4px;
+    font-weight: 200;
+    margin-right: 2em; }
+  .symptoms .optionWrapper .options {
+    width: 50%;
+    display: inline-block; }
+    .symptoms .optionWrapper .options .option {
+      background-color: #FFB874;
+      float: right; }
+  .symptoms .optionWrapper .chosen {
+    width: 50%;
+    display: inline-block; }
+    .symptoms .optionWrapper .chosen .added {
+      margin-bottom: 1.5em; }
+      .symptoms .optionWrapper .chosen .added .Symptom {
+        display: inline;
+        padding-bottom: .3em;
+        border-bottom: 1px solid #FFB874; }
+      .symptoms .optionWrapper .chosen .added button {
+        display: inline; }
+
+.symptoms .hide {
+  display: none; }
